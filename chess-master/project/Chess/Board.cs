@@ -156,8 +156,8 @@ namespace Chess
                 int rookTwoPos = rand.Next(homePositions[kingPos] + 1, homePositions.Count);
 
                 SetPiece(Piece.ROOK, Player.WHITE, rookOnePos, 0);
-                SetPiece(Piece.ROOK, Player.BLACK, rookOnePos, 7);
                 SetPiece(Piece.ROOK, Player.WHITE, rookTwoPos, 0);
+                SetPiece(Piece.ROOK, Player.BLACK, rookOnePos, 7);
                 SetPiece(Piece.ROOK, Player.BLACK, rookTwoPos, 7);
 
                 homePositions.Remove(rookOnePos);
