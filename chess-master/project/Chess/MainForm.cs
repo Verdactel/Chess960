@@ -70,10 +70,11 @@ namespace Chess
         {
             // clean up all of the things first
             if (!m_manualBoard) Stop();
-
+            
             // create new game for number of players
             m_aigame = (nPlayers == 0);
-            chess = new Chess(this, nPlayers, !m_manualBoard);
+            if(temp2.Tag.Equals("1")) chess = new Chess(this, nPlayers, !m_manualBoard, true);
+            else chess = new Chess(this, nPlayers, !m_manualBoard);
 
             // show turn status
             SetTurn(Player.WHITE);
@@ -216,5 +217,7 @@ namespace Chess
                 prgThinking.Style = ProgressBarStyle.Continuous;
             }
         }
+
+        
     }
 }

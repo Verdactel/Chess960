@@ -13,6 +13,7 @@ namespace Chess
     public partial class MainForm : Form, UIBoard
     {
         private ToolStripMenuItem temp; // selected difficulty
+        private ToolStripMenuItem temp2; // selected Chess960 or not
         TimeSpan m_whiteTime = new TimeSpan(0);
         TimeSpan m_blackTime = new TimeSpan(0);
 
@@ -32,6 +33,9 @@ namespace Chess
             // setup initial ai depth
             temp = mnuDif3;
             AI.DEPTH = 3;
+
+            //Set Chess960 to false initially
+            temp2 = false960;
 
             SetStatus(false, "Choose New Game or Manual Board.");
 
@@ -72,6 +76,18 @@ namespace Chess
             {
                 NewGame(2);
             }
+        }
+        private void Chess960(object sender, EventArgs e)
+        {
+            // uncheck previously checked
+            if (temp2 != null)
+            {
+                temp2.CheckState = CheckState.Unchecked;
+            }
+
+            //Check new Chess960 option
+            temp2 = (ToolStripMenuItem)sender;
+            temp2.CheckState = CheckState.Checked;
         }
 
         private void Difficulty(object sender, EventArgs e)

@@ -15,7 +15,7 @@ namespace Chess
         private UIBoard m_UI;
         private int m_nPlayers;
 
-        public Chess(UIBoard ui, int nPlayers = 1, bool setupBoard = true)
+        public Chess(UIBoard ui, int nPlayers = 1, bool setupBoard = true, bool isChess960 = false)
         {
             // callback setup
             this.m_UI = ui;
@@ -29,6 +29,7 @@ namespace Chess
 
             // create a new blank board unless setup is true
             this.Board = new ChessBoard();
+            this.Board.SetChess960(isChess960);
             if (setupBoard)
             {
                 this.Board.SetInitialPlacement();

@@ -61,6 +61,9 @@
             this.mnuDif3 = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuDif4 = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuDif5 = new System.Windows.Forms.ToolStripMenuItem();
+            this.chess960 = new System.Windows.Forms.ToolStripMenuItem();
+            this.true960 = new System.Windows.Forms.ToolStripMenuItem();
+            this.false960 = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.prgThinking = new System.Windows.Forms.ToolStripProgressBar();
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
@@ -88,10 +91,12 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.difficultyDepthToolStripMenuItem});
+            this.difficultyDepthToolStripMenuItem,
+            this.chess960});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(634, 24);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(845, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -347,26 +352,54 @@
             this.mnuDif5.Text = "Insane ( 5 )";
             this.mnuDif5.Click += new System.EventHandler(this.Difficulty);
             // 
+            // chess960
+            // 
+            this.chess960.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.true960,
+            this.false960});
+            this.chess960.Name = "chess960";
+            this.chess960.Size = new System.Drawing.Size(68, 20);
+            this.chess960.Text = "Chess960";
+            // 
+            // true960
+            // 
+            this.true960.Name = "true960";
+            this.true960.Size = new System.Drawing.Size(180, 22);
+            this.true960.Tag = "1";
+            this.true960.Text = "True";
+            this.true960.Click += new System.EventHandler(this.Chess960);
+            // 
+            // false960
+            // 
+            this.false960.Checked = true;
+            this.false960.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.false960.Name = "false960";
+            this.false960.Size = new System.Drawing.Size(180, 22);
+            this.false960.Tag = "0";
+            this.false960.Text = "False";
+            this.false960.Click += new System.EventHandler(this.Chess960);
+            // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.prgThinking,
             this.lblStatus});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 440);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 543);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(634, 22);
+            this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
+            this.statusStrip1.Size = new System.Drawing.Size(845, 26);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // prgThinking
             // 
             this.prgThinking.Name = "prgThinking";
-            this.prgThinking.Size = new System.Drawing.Size(100, 16);
+            this.prgThinking.Size = new System.Drawing.Size(133, 20);
             // 
             // lblStatus
             // 
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(63, 17);
+            this.lblStatus.Size = new System.Drawing.Size(62, 21);
             this.lblStatus.Text = "Thinking...";
             // 
             // splitView
@@ -375,6 +408,7 @@
             this.splitView.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
             this.splitView.IsSplitterFixed = true;
             this.splitView.Location = new System.Drawing.Point(0, 24);
+            this.splitView.Margin = new System.Windows.Forms.Padding(4);
             this.splitView.Name = "splitView";
             // 
             // splitView.Panel1
@@ -396,16 +430,18 @@
             this.splitView.Panel2.Controls.Add(this.label1);
             this.splitView.Panel2.Controls.Add(this.label2);
             this.splitView.Panel2MinSize = 200;
-            this.splitView.Size = new System.Drawing.Size(634, 416);
-            this.splitView.SplitterDistance = 414;
+            this.splitView.Size = new System.Drawing.Size(845, 519);
+            this.splitView.SplitterDistance = 615;
+            this.splitView.SplitterWidth = 5;
             this.splitView.TabIndex = 2;
             // 
             // lblBlackCheck
             // 
             this.lblBlackCheck.AutoSize = true;
-            this.lblBlackCheck.Location = new System.Drawing.Point(153, 49);
+            this.lblBlackCheck.Location = new System.Drawing.Point(204, 60);
+            this.lblBlackCheck.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblBlackCheck.Name = "lblBlackCheck";
-            this.lblBlackCheck.Size = new System.Drawing.Size(50, 13);
+            this.lblBlackCheck.Size = new System.Drawing.Size(59, 16);
             this.lblBlackCheck.TabIndex = 6;
             this.lblBlackCheck.Text = "In Check";
             this.lblBlackCheck.Visible = false;
@@ -413,45 +449,50 @@
             // lblWhiteCheck
             // 
             this.lblWhiteCheck.AutoSize = true;
-            this.lblWhiteCheck.Location = new System.Drawing.Point(13, 49);
+            this.lblWhiteCheck.Location = new System.Drawing.Point(17, 60);
+            this.lblWhiteCheck.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblWhiteCheck.Name = "lblWhiteCheck";
-            this.lblWhiteCheck.Size = new System.Drawing.Size(50, 13);
+            this.lblWhiteCheck.Size = new System.Drawing.Size(59, 16);
             this.lblWhiteCheck.TabIndex = 6;
             this.lblWhiteCheck.Text = "In Check";
             this.lblWhiteCheck.Visible = false;
             // 
             // picTurn
             // 
-            this.picTurn.Location = new System.Drawing.Point(89, 12);
+            this.picTurn.Location = new System.Drawing.Point(119, 15);
+            this.picTurn.Margin = new System.Windows.Forms.Padding(4);
             this.picTurn.Name = "picTurn";
-            this.picTurn.Size = new System.Drawing.Size(39, 20);
+            this.picTurn.Size = new System.Drawing.Size(52, 25);
             this.picTurn.TabIndex = 5;
             this.picTurn.TabStop = false;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 74);
+            this.label3.Location = new System.Drawing.Point(17, 91);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(42, 13);
+            this.label3.Size = new System.Drawing.Size(52, 16);
             this.label3.TabIndex = 4;
             this.label3.Text = "Moves:";
             // 
             // txtLog
             // 
-            this.txtLog.Location = new System.Drawing.Point(16, 90);
+            this.txtLog.Location = new System.Drawing.Point(21, 111);
+            this.txtLog.Margin = new System.Windows.Forms.Padding(4);
             this.txtLog.Multiline = true;
             this.txtLog.Name = "txtLog";
             this.txtLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtLog.Size = new System.Drawing.Size(187, 264);
+            this.txtLog.Size = new System.Drawing.Size(248, 324);
             this.txtLog.TabIndex = 3;
             // 
             // lblWhiteTime
             // 
             this.lblWhiteTime.AutoSize = true;
-            this.lblWhiteTime.Location = new System.Drawing.Point(13, 32);
+            this.lblWhiteTime.Location = new System.Drawing.Point(17, 39);
+            this.lblWhiteTime.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblWhiteTime.Name = "lblWhiteTime";
-            this.lblWhiteTime.Size = new System.Drawing.Size(58, 13);
+            this.lblWhiteTime.Size = new System.Drawing.Size(66, 16);
             this.lblWhiteTime.TabIndex = 2;
             this.lblWhiteTime.Text = "00:00:00.0";
             // 
@@ -459,9 +500,10 @@
             // 
             this.lblBlackTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblBlackTime.AutoSize = true;
-            this.lblBlackTime.Location = new System.Drawing.Point(145, 32);
+            this.lblBlackTime.Location = new System.Drawing.Point(121, 39);
+            this.lblBlackTime.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblBlackTime.Name = "lblBlackTime";
-            this.lblBlackTime.Size = new System.Drawing.Size(58, 13);
+            this.lblBlackTime.Size = new System.Drawing.Size(66, 16);
             this.lblBlackTime.TabIndex = 2;
             this.lblBlackTime.Text = "00:00:00.0";
             // 
@@ -469,7 +511,8 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(12, 12);
+            this.label1.Location = new System.Drawing.Point(16, 15);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(50, 20);
             this.label1.TabIndex = 1;
@@ -480,7 +523,8 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(156, 12);
+            this.label2.Location = new System.Drawing.Point(208, 15);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(48, 20);
             this.label2.TabIndex = 1;
@@ -497,14 +541,15 @@
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(634, 462);
+            this.ClientSize = new System.Drawing.Size(845, 569);
             this.Controls.Add(this.splitView);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.MinimumSize = new System.Drawing.Size(650, 500);
+            this.Margin = new System.Windows.Forms.Padding(4);
+            this.MinimumSize = new System.Drawing.Size(861, 606);
             this.Name = "MainForm";
             this.Text = "Chess";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.windowClosing);
@@ -572,6 +617,9 @@
         private System.Windows.Forms.Timer tmrWhite;
         private System.Windows.Forms.Timer tmrBlack;
         private System.Windows.Forms.ToolStripMenuItem newAIGame;
+        private System.Windows.Forms.ToolStripMenuItem chess960;
+        private System.Windows.Forms.ToolStripMenuItem true960;
+        private System.Windows.Forms.ToolStripMenuItem false960;
     }
 }
 
